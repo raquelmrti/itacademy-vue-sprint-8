@@ -15,9 +15,20 @@ The project consists in building a website that shows information about the star
 **✏️ Notes**:
 
 - I used Axios to make the API call. Axios makes it even easier to consume APIs since it automatically transforms the data received to JSON.
-- I stored the logic for the API call in a separate service file, `StarWarsService.js`. I learned this from [this video by GOGODEV](https://www.youtube.com/watch?v=tTRICbkGHoU&list=PLDllzmccetSNgykILXnHMeuO-y-gRcF-i&index=9), although he wrote a class while I decided to go for a functional approach. It's good practice to keep the presentation layer (components, views) and data access layer (APIs, databases) separate!
+- I stored the logic for the API call in a separate service file, `StarWarsService.js`. I learned this from [this video by GOGODEV](https://www.youtube.com/watch?v=tTRICbkGHoU&list=PLDllzmccetSNgykILXnHMeuO-y-gRcF-i&index=9), although he wrote a class while I decided to go for a functional approach (Edit: later I ended up switching to a class, too). It's good practice to keep the presentation layer (components, views) and data access layer (APIs, databases) separate!
 
 ##### ✅ Finished: 17/05/2023
+
+**— Exercise 2**
+
+- Show individual starship information when the user clicks on one of the starships from the list. For this, I had to take the id of the starship from the URL and make an API call that retrieves information of the starship with the corresponding id.
+
+**✏️ Notes**:
+
+- Since I'm using Pinia, I removed the service file and instead moved the API call functions to a store, as well as other data.
+- Some starships don't have an image and it caused the `img src` not to work. To solve this, I used the `@error` event handler which triggers when an external file doesn't load. I passed it a function that sets the source to that of a placeholder image.
+
+##### ✅ Finished: 22/05/2023
 
 
 ---

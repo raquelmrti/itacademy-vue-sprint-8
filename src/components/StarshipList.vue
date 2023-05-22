@@ -1,21 +1,27 @@
 <script setup>
-import { RouterLink } from "vue-router";
 import { onMounted } from "vue";
-import { getStarships, getData } from "@/services/StarWarsService";
+import { useStarshipStore } from "../stores/starshipStore";
+import { storeToRefs } from "pinia";
 
-const starshipsArray = getStarships();
+const store = useStarshipStore();
+const { starshipArray } = storeToRefs(store);
+const { fetchAllStarships } = store;
 
 onMounted(async () => {
-  await getData();
+  await fetchAllStarships();
 });
+
+function getIdFromUrl(url) {
+  return parseInt(url.match(/\d+/)[0]);
+}
 </script>
 
 <template>
-  <ul class="starships-list">
-    <li v-for="{ name, model } in starshipsArray" :key="name">
-      <router-link :to="`/starships/${name}`"> {{ name }} - {{ model }} </router-link>
+  <ul>
+    <li v-for="{ name, model, url } in starshipArray" :key="name">
+      <router-link :to="{ name: 'starshipInfo', params: { id: getIdFromUrl(url) } }">
+        {{ name }} - {{ model }}
+      </router-link>
     </li>
   </ul>
 </template>
-
-<style scoped></style>

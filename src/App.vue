@@ -1,20 +1,17 @@
-<script setup>
-import { RouterView, RouterLink } from 'vue-router'
-</script>
-
 <template>
   <nav>
-    <router-link to="/">Home</router-link>
-    <router-link to="starships">Starships</router-link>
+    <RouterLink :to="{name: 'home'}">Home</RouterLink>
+    <RouterLink :to="{name: 'starshipList'}">Starships</RouterLink>
   </nav>
+  <main>
     <RouterView />
+  </main>
 </template>
 
-<style scoped>
+<style scoped lang="scss">
 nav {
   display: flex;
   gap: 2em;
   margin-bottom: 2em;
 }
-
 </style>
