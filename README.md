@@ -30,6 +30,11 @@ The project consists in building a website that shows information about the star
 
 ##### ✅ Finished: 22/05/2023
 
+**— Exercise 3**
+
+- Add infinite scrolling so that the list of starships loads more ships as the user scrolls down. For this, I added an event listener to the window which fires a function that fetches the next page of starships when the user reaches the bottom of the window. Then, the newly fetched starship array gets pushed to the main array.
+##### ✅ Finished: 22/05/2023
+
 
 ---
 
