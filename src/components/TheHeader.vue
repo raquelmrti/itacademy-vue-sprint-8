@@ -1,0 +1,102 @@
+<template>
+  <header>
+    <div class="login-container">
+      <a href="#" class="login-link">Log in</a>
+      <a href="#" class="signup-link">Sign up</a>
+    </div>
+
+    <RouterLink :to="{ name: 'home' }" class="logo-container">
+      <picture>
+        <source media="(min-width: 700px)" srcset="@/assets/img/sw-logo-stacked.png" height="80" />
+        <img alt="Star Wars logo" src="@/assets/img/sw-logo-horizontal.webp" height="32" />
+      </picture>
+    </RouterLink>
+  </header>
+
+  <nav>
+    <ul class="nav-items-list">
+      <li class="nav-item">
+        <RouterLink :to="{ name: 'home' }">Home</RouterLink>
+      </li>
+      <li class="nav-item">
+        <RouterLink RouterLink :to="{ name: 'starshipList' }">Starships</RouterLink>
+      </li>
+    </ul>
+  </nav>
+</template>
+
+<style scoped lang="scss">
+header {
+  display: flex;
+  gap: 1em;
+  align-items: center;
+  flex-direction: column;
+  padding: 2em 4em;
+
+  @media only screen and (min-width: 700px) {
+    justify-content: center;
+    flex-direction: row;
+  }
+
+  .login-container {
+    text-transform: uppercase;
+
+    @media only screen and (min-width: 700px) {
+      order: 2;
+    }
+  }
+
+  .login-link {
+    margin-right: 1em;
+  }
+
+  .logo-container {
+    display: flex;
+    justify-content: center;
+    flex-grow: 1;
+    align-items: center;
+
+    @media only screen and (min-width: 700px) {
+      margin-left: calc(120px + 1em);
+    }
+  }
+}
+
+nav {
+  text-align: center;
+  text-transform: uppercase;
+  border-top: 1px solid $transparent-gray;
+  border-bottom: 1px solid $transparent-gray;
+  margin-bottom: 2em;
+
+  .nav-items-list {
+    list-style: none;
+    padding-inline-start: 0;
+
+    .nav-item {
+      padding: 0.7em 1em;
+      border-right: 1px solid $transparent-gray;
+      border-left: 1px solid $transparent-gray;
+      height: 45px;
+      display: inline-block;
+      position: relative;
+
+      .router-link-active,
+      .router-link-exact-active {
+        color: #fff;
+
+        &::after {
+          content: "";
+          position: absolute;
+          width: 100%;
+          height: 2px;
+          background-color: $blue-accent;
+          bottom: 0;
+          left: 0;
+
+        }
+      }
+    }
+  }
+}
+</style>

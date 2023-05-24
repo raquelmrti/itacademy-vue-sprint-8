@@ -1,17 +1,23 @@
+<script setup>
+import TheHeader from "./components/TheHeader.vue"
+</script>
+
 <template>
-  <nav>
-    <RouterLink :to="{name: 'home'}">Home</RouterLink>
-    <RouterLink :to="{name: 'starshipList'}">Starships</RouterLink>
-  </nav>
+  <TheHeader />
   <main>
     <RouterView />
   </main>
 </template>
 
 <style scoped lang="scss">
-nav {
-  display: flex;
-  gap: 2em;
-  margin-bottom: 2em;
+main {
+  max-width: 900px;
+  margin: 0 auto;
+  padding: 2em;
+
+  @media only screen and (min-width: 700px) {
+    width: 85%;
+    }
 }
+
 </style>

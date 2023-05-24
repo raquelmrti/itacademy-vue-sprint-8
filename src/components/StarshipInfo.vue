@@ -17,17 +17,13 @@ onMounted(async () => {
 
 <template>
   <div v-if="isLoading">Loading...</div>
-  <div v-else>
+  <div v-else class="starship-info-wrapper">
     <h1 class="starship-name">{{ starshipInfo.name }}</h1>
-    <img
-      :src="starshipImg"
-      :alt="starshipInfo.name"
-      :title="starshipInfo.name"
-      @error="showStarshipPlaceholderImg"
-    />
+    <img class="starship-img" :src="starshipImg" :alt="starshipInfo.name" :title="starshipInfo.name"
+      @error="showStarshipPlaceholderImg" />
 
     <div class="starship-detail-list">
-      <dl>
+      <dl class="list-1">
         <dt>Model:</dt>
         <dd>{{ starshipInfo.model }}</dd>
         <br />
@@ -41,7 +37,7 @@ onMounted(async () => {
         <dd>{{ starshipInfo.cost_in_credits }} credits</dd>
       </dl>
 
-      <dl>
+      <dl class="list-2">
         <dt>Crew:</dt>
         <dd>{{ starshipInfo.crew }}</dd>
         <br />
@@ -52,32 +48,59 @@ onMounted(async () => {
         <dd>{{ starshipInfo.consumables }}</dd>
       </dl>
 
-      <dl>
+      <dl class="list-3">
         <dt>Length:</dt>
         <dd>{{ starshipInfo.length }} meters</dd>
         <br />
-        <dt>Maximum atmosphering speed</dt>
+        <dt>Maximum atmosphering speed:</dt>
         <dd>{{ starshipInfo.max_atmosphering_speed }} km/h</dd>
         <br />
-        <dt>Hyperdrive rating</dt>
+        <dt>Hyperdrive rating:</dt>
         <dd>{{ starshipInfo.hyperdrive_rating }}</dd>
         <br />
-        <dt>Maximum speed in realspace</dt>
+        <dt>Maximum speed in realspace:</dt>
         <dd>{{ starshipInfo.MGLT }} MGLT</dd>
       </dl>
     </div>
   </div>
-
-  <RouterLink :to="{ name: 'starshipList' }">
-    <button>Go back</button>
-  </RouterLink>
 </template>
 
 <style scoped lang="scss">
+.starship-info-wrapper {
+  text-align: center;
+  margin-bottom: 5em;
+}
+
 .starship-name,
 .starship-detail-list {
   text-transform: uppercase;
 }
+
+.starship-img {
+  margin: 1em 0;
+  width: 100%;
+  max-width: 600px;
+}
+
+.starship-detail-list {
+  display: grid;
+}
+
+@media only screen and (min-width: 700px) {
+  .starship-detail-list {
+    grid-template-columns: repeat(2, 1fr);
+    gap: 1.5em;
+  }
+
+  .list-1 {
+    grid-column: span 2;
+  }
+
+  .list-2, .list-3 {
+    text-align: left;
+  }
+}
+
 
 .starship-name,
 dt {

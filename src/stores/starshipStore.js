@@ -6,6 +6,7 @@ export const useStarshipStore = defineStore('starshipStore', () => {
   const API_URL = "https://swapi.dev/api/starships"
   const currentPage = ref(1)
   const isLoading = ref(false)
+  const isLoadingMoreStarships = ref(false)
   const starshipArray = ref([])
   const starshipId = ref(0)
   const starshipInfo = ref([])
@@ -42,8 +43,13 @@ export const useStarshipStore = defineStore('starshipStore', () => {
   }
 
   async function loadMoreStarships() {
+    isLoadingMoreStarships.value = true
+
     // TODO: try not to hardcode the page limit?
-    if (currentPage.value === 4) return
+    if (currentPage.value === 4) {
+      isLoadingMoreStarships.value = false
+      return
+    }
 
     currentPage.value++
     try {
@@ -55,6 +61,8 @@ export const useStarshipStore = defineStore('starshipStore', () => {
       });
     } catch (error) {
       console.log('Failed to fetch starships data')
+    } finally {
+      isLoadingMoreStarships.value = false
     }
   }
 
@@ -72,6 +80,7 @@ export const useStarshipStore = defineStore('starshipStore', () => {
     starshipPlaceholderImg,
     fetchStarships,
     loadMoreStarships,
+    isLoadingMoreStarships,
     fetchStarshipById,
     showStarshipPlaceholderImg
   }
