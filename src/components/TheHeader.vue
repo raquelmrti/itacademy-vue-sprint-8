@@ -31,7 +31,7 @@ header {
   gap: 1em;
   align-items: center;
   flex-direction: column;
-  padding: 2em 4em;
+  padding: 2em 8em;
 
   @media only screen and (min-width: 700px) {
     justify-content: center;
@@ -40,6 +40,11 @@ header {
 
   .login-container {
     text-transform: uppercase;
+    font-weight: bold;
+
+    a {
+      color: #fff;
+    }
 
     @media only screen and (min-width: 700px) {
       order: 2;
@@ -57,7 +62,7 @@ header {
     align-items: center;
 
     @media only screen and (min-width: 700px) {
-      margin-left: calc(120px + 1em);
+      margin-left: calc(133px + 1em);
     }
   }
 }
@@ -80,6 +85,7 @@ nav {
       height: 45px;
       display: inline-block;
       position: relative;
+      font-weight: bold;
 
       .router-link-active,
       .router-link-exact-active {

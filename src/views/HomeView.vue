@@ -1,5 +1,7 @@
-<script setup></script>
+<script setup>
+import TheHome from "../components/TheHome.vue"
+</script>
 
 <template>
-  <div>HomeView</div>
+  <TheHome />
 </template>

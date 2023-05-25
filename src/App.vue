@@ -1,5 +1,5 @@
 <script setup>
-import TheHeader from "./components/TheHeader.vue"
+import TheHeader from './components/TheHeader.vue'
 </script>
 
 <template>
@@ -17,7 +17,6 @@ main {
 
   @media only screen and (min-width: 700px) {
     width: 85%;
-    }
+  }
 }
-
 </style>

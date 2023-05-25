@@ -42,6 +42,12 @@ The project consists in building a website that shows information about the star
 
 ##### ✅ Finished: 24/05/2023
 
+**— Exercise 5**
+
+- Add a Welcome page.
+
+##### ✅ Finished: 25/05/2023
+
 
 ---
 
