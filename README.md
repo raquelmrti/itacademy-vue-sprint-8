@@ -48,6 +48,12 @@ The project consists in building a website that shows information about the star
 
 ##### ✅ Finished: 25/05/2023
 
+**— Exercise 6**
+
+- Implement a user log in and sign up system with local storage. I made another store for the user data and logic, `userStore`.
+
+##### ✅ Finished: 28/05/2023
+
 
 ---
 

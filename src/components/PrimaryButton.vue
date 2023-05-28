@@ -30,5 +30,11 @@ button {
   text-transform: uppercase;
   cursor: pointer;
   border: none;
+  transition: 0.5s ease;
+
+  &:hover {
+    background-color: #fff282;
+    transition: 0.2s ease;
+  }
 }
 </style>

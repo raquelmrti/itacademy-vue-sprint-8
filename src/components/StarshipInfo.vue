@@ -86,7 +86,7 @@ onMounted(async () => {
   display: grid;
 }
 
-@media only screen and (min-width: 700px) {
+@media only screen and (min-width: 760px) {
   .starship-detail-list {
     grid-template-columns: repeat(2, 1fr);
     gap: 1.5em;
