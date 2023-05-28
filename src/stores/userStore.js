@@ -1,5 +1,6 @@
 import { ref, computed } from 'vue'
 import { defineStore } from 'pinia'
+import { useRouter } from 'vue-router'
 
 export const useUserStore = defineStore('userStore', () => {
   // sign up
@@ -28,10 +29,18 @@ export const useUserStore = defineStore('userStore', () => {
       userPassword.value === localStorage.getItem('userPassword')
   )
 
+  const router = useRouter()
+
   function authUser() {
     if (userCredentialsAreCorrect.value) {
       console.log('Logged in!')
       userIsLoggedIn.value = true
+
+      if (attemptedRoute.value) {
+        router.push(attemptedRoute.value)
+        attemptedRoute.value = null
+      }
+
     } else {
       console.log('Incorrect email or password.')
       userIsLoggedIn.value = false
@@ -41,11 +50,11 @@ export const useUserStore = defineStore('userStore', () => {
     userPassword.value = ''
   }
 
-  function handleSuccessfulAuth() {
-    alert('Welcome!')
-    userEmail.value = ''
-    userPassword.value = ''
-  }
+  // modals
+  const showModalLogIn = ref(false)
+  const showModalSignUp = ref(false)
+
+  const attemptedRoute = ref(null)
 
   return {
     newUserEmail,
@@ -54,7 +63,9 @@ export const useUserStore = defineStore('userStore', () => {
     userPassword,
     registerUser,
     authUser,
-    handleSuccessfulAuth,
-    userIsLoggedIn
+    userIsLoggedIn,
+    showModalLogIn,
+    showModalSignUp,
+    attemptedRoute
   }
 })

@@ -1,23 +1,23 @@
 <script setup>
-import { ref } from "vue";
-import SignUpModal from "../components/SignUpModal.vue"
-import LogInModal from "../components/LogInModal.vue"
+import { useUserStore } from "../stores/userStore";
+import { storeToRefs } from "pinia";
+import SignUpModal from "../components/SignUpModal.vue";
+import LogInModal from "../components/LogInModal.vue";
 
-const showModalLogIn = ref(false);
-const showModalSignUp = ref(false);
+const store = useUserStore();
+const { showModalLogIn, showModalSignUp } = storeToRefs(store);
 </script>
 
 <template>
-
   <header>
     <div class="login-container">
       <a href="#" class="login-link" @click="showModalLogIn = true">Log in</a>
       <a href="#" class="signup-link" @click="showModalSignUp = true">Sign up</a>
     </div>
 
-    <SignUpModal v-if="showModalSignUp" @closeModal="showModalSignUp = false"/>
+    <SignUpModal v-if="showModalSignUp" @closeModal="showModalSignUp = false" />
 
-    <LogInModal v-if="showModalLogIn" @close-modal="showModalLogIn = false"/>
+    <LogInModal v-if="showModalLogIn" @close-modal="showModalLogIn = false" />
 
     <RouterLink :to="{ name: 'home' }" class="logo-container">
       <picture>

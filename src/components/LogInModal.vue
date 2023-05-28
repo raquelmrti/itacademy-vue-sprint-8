@@ -4,7 +4,7 @@ import { storeToRefs } from "pinia";
 import BaseModal from "./BaseModal.vue";
 
 const store = useUserStore();
-const { userEmail, userPassword } = storeToRefs(store);
+const { userEmail, userPassword, showModalLogIn, showModalSignUp } = storeToRefs(store);
 const { authUser } = store;
 
 const emit = defineEmits(["closeModal"]);
@@ -16,6 +16,11 @@ const closeLogInModal = () => {
 const onSubmit = () => {
   authUser();
   closeLogInModal();
+};
+
+const changeModalToSignUp = () => {
+  showModalLogIn.value = false;
+  showModalSignUp.value = true;
 };
 </script>
 
@@ -44,6 +49,12 @@ const onSubmit = () => {
         </div>
         <button type="submit" class="modal-button">Continue</button>
       </form>
+    </template>
+    <template #modal-footer>
+      <p>
+        Don't have an account?
+        <button class="modal-link-button" @click="changeModalToSignUp">Sign up</button>
+      </p>
     </template>
   </BaseModal>
 </template>

@@ -30,6 +30,14 @@ a {
   }
 }
 
+button {
+  background: 0;
+  font-family: $main-font;
+  font-size: 1em;
+  border: 0;
+  cursor: pointer
+}
+
 /* @media (hover: hover) {
   a:hover {
     background-color: hsla(160, 100%, 37%, 0.2);

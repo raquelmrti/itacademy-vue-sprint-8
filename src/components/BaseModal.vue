@@ -18,6 +18,9 @@ const close = () => {
         <main class="modal-body">
           <slot name="modal-body"></slot>
         </main>
+        <footer class="modal-footer">
+          <slot name="modal-footer"></slot>
+        </footer>
       </div>
     </div>
   </Teleport>
