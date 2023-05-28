@@ -54,10 +54,15 @@ The project consists in building a website that shows information about the star
 
 ##### ✅ Finished: 28/05/2023
 
-
 ---
 
 ### ⭐⭐ **Level 2** ⭐⭐
+
+**— Exercise 7**
+
+- Guard the `/starships` and `/starships/:id` routes so that only logged in users can access them. I accomplished this by adding a `requireAuth` metadata to all the routes, which is a boolean set to true or false depending on the route. Then, with a `router.beforeEach` function,  it checks if the route selected needs authentication and if the user is logged in. If it needs aunthentication and the user is not logged in, the log in modal shows up.
+
+##### ✅ Finished: 28/05/2023
 
 ---
 
