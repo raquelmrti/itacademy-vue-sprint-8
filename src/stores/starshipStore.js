@@ -4,19 +4,22 @@ import axios from 'axios'
 
 export const useStarshipStore = defineStore('starshipStore', () => {
   const API_URL = "https://swapi.dev/api/starships"
+  const ASSETS_API_URL = 'https://starwars-visualguide.com/assets/img'
   const currentPage = ref(1)
-  const isLoading = ref(false)
+  const isLoadingStarships = ref(false)
   const isLoadingMoreStarships = ref(false)
   const starshipArray = ref([])
   const starshipId = ref(0)
-  const starshipInfo = ref([])
+  const starshipInfo = ref({})
   const starshipImg = computed(() => {
-    return `https://starwars-visualguide.com/assets/img/starships/${starshipId.value}.jpg`
+    return `${ASSETS_API_URL}/starships/${starshipId.value}.jpg`
   })
-  const starshipPlaceholderImg = 'https://starwars-visualguide.com/assets/img/big-placeholder.jpg'
+  const starshipPlaceholderImg = `${ASSETS_API_URL}/big-placeholder.jpg`
+
+  const starshipPilots = ref([])
 
   async function fetchStarships() {
-    isLoading.value = true
+    isLoadingStarships.value = true
     try {
       const { data } = await axios.get(API_URL, {
         params: { page: currentPage.value }
@@ -25,20 +28,20 @@ export const useStarshipStore = defineStore('starshipStore', () => {
     } catch (error) {
       console.log('Failed to fetch starships data')
     } finally {
-      isLoading.value = false
+      isLoadingStarships.value = false
     }
   }
 
   async function fetchStarshipById(id) {
-    isLoading.value = true
+    isLoadingStarships.value = true
 
     try {
       const { data } = await axios.get(`${API_URL}/${id}`)
-      starshipInfo.value = data
+      return data
     } catch (error) {
       console.log('Failed to fetch starship data')
     } finally {
-      isLoading.value = false
+      isLoadingStarships.value = false
     }
   }
 
@@ -70,18 +73,27 @@ export const useStarshipStore = defineStore('starshipStore', () => {
     event.target.src = starshipPlaceholderImg
   }
 
+  function $reset() {
+    starshipArray.value = []
+    starshipId.value = 0
+    starshipInfo.value = {}
+    starshipPilots.value = []
+  }
+
   return {
     currentPage,
-    isLoading,
+    isLoadingStarships,
     starshipArray,
     starshipId,
     starshipInfo,
     starshipImg,
     starshipPlaceholderImg,
+    starshipPilots,
     fetchStarships,
     loadMoreStarships,
     isLoadingMoreStarships,
     fetchStarshipById,
-    showStarshipPlaceholderImg
+    showStarshipPlaceholderImg,
+    $reset
   }
 })

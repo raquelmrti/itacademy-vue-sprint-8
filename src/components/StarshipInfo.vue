@@ -1,28 +1,56 @@
 <script setup>
-import { onMounted } from "vue";
+import { onMounted, onUnmounted, computed } from "vue";
 import { useRoute } from "vue-router";
 import { useStarshipStore } from "../stores/starshipStore";
+import { useGlobalStore } from "../stores/globalStore";
 import { storeToRefs } from "pinia";
 
-const store = useStarshipStore();
-const { isLoading, starshipId, starshipInfo, starshipImg } = storeToRefs(store);
-const { fetchStarshipById, showStarshipPlaceholderImg } = store;
+const starshipStore = useStarshipStore();
+const { isLoading, starshipId, starshipInfo, starshipImg, starshipPilots } = storeToRefs(
+  starshipStore
+);
+const { fetchStarshipById, showStarshipPlaceholderImg } = starshipStore;
+
+const globalStore = useGlobalStore();
+const { getIdFromUrl } = globalStore;
+
+const getPilotImages = (pilotUrls) => {
+  return pilotUrls.map((pilotUrl) => {
+    const id = getIdFromUrl(pilotUrl);
+    return `https://starwars-visualguide.com/assets/img/characters/${id}.jpg`;
+  });
+};
 
 onMounted(async () => {
   const route = useRoute();
   starshipId.value = route.params.id;
-  await fetchStarshipById(starshipId.value);
+  starshipInfo.value = await fetchStarshipById(starshipId.value);
+
+  starshipPilots.value = starshipInfo.value.pilots;
+
+  starshipInfo.value.pilots_portraits = getPilotImages(starshipPilots.value);
+});
+
+const areThereNoPilots = computed(() => starshipPilots.value.length === 0);
+
+onUnmounted(() => {
+  starshipStore.$reset();
 });
 </script>
 
 <template>
   <div v-if="isLoading">Loading...</div>
-  <div v-else class="starship-info-wrapper">
-    <h1 class="starship-name">{{ starshipInfo.name }}</h1>
-    <img class="starship-img" :src="starshipImg" :alt="starshipInfo.name" :title="starshipInfo.name"
-      @error="showStarshipPlaceholderImg" />
+  <div v-else class="info-wrapper">
+    <h1 class="name">{{ starshipInfo.name }}</h1>
+    <img
+      class="starship-img"
+      :src="starshipImg"
+      :alt="starshipInfo.name"
+      :title="starshipInfo.name"
+      @error="showStarshipPlaceholderImg"
+    />
 
-    <div class="starship-detail-list">
+    <div class="detail-list">
       <dl class="list-1">
         <dt>Model:</dt>
         <dd>{{ starshipInfo.model }}</dd>
@@ -42,6 +70,9 @@ onMounted(async () => {
         <dd>{{ starshipInfo.crew }}</dd>
         <br />
         <dt>Passenger capacity:</dt>
+        <dd>{{ starshipInfo.passengers }}</dd>
+        <br />
+        <dt>Cargo capacity:</dt>
         <dd>{{ starshipInfo.cargo_capacity }} tons</dd>
         <br />
         <dt>Consumables:</dt>
@@ -61,58 +92,32 @@ onMounted(async () => {
         <dt>Maximum speed in realspace:</dt>
         <dd>{{ starshipInfo.MGLT }} MGLT</dd>
       </dl>
+
+      <dl class="list-pilots">
+        <dt>Pilots:</dt>
+        <dd class="pilots-portraits-container">
+          <p v-if="areThereNoPilots">Unavailable</p>
+          <div
+            v-else
+            class="pilots-portraits"
+            v-for="(portraitUrl, index) in starshipInfo.pilots_portraits"
+            :key="index"
+            :style="{ backgroundImage: `url(${portraitUrl})` }"
+          >
+            <router-link
+              :to="{ name: 'characterInfo', params: { id: getIdFromUrl(portraitUrl) } }"
+            ></router-link>
+          </div>
+        </dd>
+      </dl>
     </div>
   </div>
 </template>
 
 <style scoped lang="scss">
-.starship-info-wrapper {
-  text-align: center;
-  margin-bottom: 5em;
-}
-
-.starship-name,
-.starship-detail-list {
-  text-transform: uppercase;
-}
+@import "../assets/scss/_info-list.scss";
 
 .starship-img {
-  margin: 1em 0;
-  width: 100%;
   max-width: 600px;
-}
-
-.starship-detail-list {
-  display: grid;
-}
-
-@media only screen and (min-width: 760px) {
-  .starship-detail-list {
-    grid-template-columns: repeat(2, 1fr);
-    gap: 1.5em;
-  }
-
-  .list-1 {
-    grid-column: span 2;
-  }
-
-  .list-2, .list-3 {
-    text-align: left;
-  }
-}
-
-
-.starship-name,
-dt {
-  font-weight: bold;
-}
-
-dt,
-dd {
-  display: inline;
-}
-
-dt {
-  margin-right: 0.5em;
 }
 </style>

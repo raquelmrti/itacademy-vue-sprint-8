@@ -1,15 +1,17 @@
 <script setup>
 import { onMounted, onUnmounted } from "vue";
 import { useStarshipStore } from "../stores/starshipStore";
+import { useGlobalStore } from "../stores/globalStore";
 import { storeToRefs } from "pinia";
 
-const store = useStarshipStore();
-const { isLoading, isLoadingMoreStarships, starshipArray, currentPage } = storeToRefs(
-  store
-);
-const { fetchStarships, loadMoreStarships } = store;
+const globalStore = useGlobalStore();
+const { getIdFromUrl } = globalStore;
 
-const getIdFromUrl = (url) => parseInt(url.match(/\d+/)[0]);
+const starshipStore = useStarshipStore();
+const { isLoadingStarships, isLoadingMoreStarships, starshipArray, currentPage } = storeToRefs(
+  starshipStore
+);
+const { fetchStarships, loadMoreStarships } = starshipStore;
 
 // infinite scrolling
 const handleScroll = () => {
@@ -29,7 +31,7 @@ onUnmounted(() => {
 </script>
 
 <template>
-  <div v-if="isLoading">
+  <div v-if="isLoadingStarships">
     <p>Loading starships...</p>
   </div>
   <ul v-else class="starship-list-ul">

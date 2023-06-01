@@ -64,6 +64,23 @@ The project consists in building a website that shows information about the star
 
 ##### ✅ Finished: 28/05/2023
 
+**— Exercise 8**
+
+- Show pilot info in each starship component.
+
+**✏️ Notes**:
+
+- I moved helper functions and needed URLs to a global store for better access and less repetition.
+- I aadded `$reset` functions to some of the stores, which I can invoke on the `onUnmounted` hook to erase data so that a component doesn't render the previous data before it re-fetches.
+
+##### ✅ Finished: 01/06/2023
+
+**— Exercise 9**
+
+- Centralize all data in stores (I've already been doing this as I worked through the Sprint.)
+
+##### ✅ Finished: 01/06/2023
+
 ---
 
 ### ⭐⭐ **Level 3** ⭐⭐

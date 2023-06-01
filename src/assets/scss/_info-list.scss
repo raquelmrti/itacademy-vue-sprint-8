@@ -1,0 +1,62 @@
+.info-wrapper {
+  text-align: center;
+  margin-bottom: 5em;
+}
+
+.name,
+.detail-list {
+  text-transform: uppercase;
+}
+
+.detail-list {
+  display: grid;
+}
+
+img {
+  margin: 1em 0;
+  width: 100%;
+}
+
+@media only screen and (min-width: 760px) {
+  .detail-list {
+    grid-template-columns: repeat(2, 1fr);
+    gap: 1.5em;
+  }
+
+  .list-1,
+  .list-pilots {
+    grid-column: span 2;
+  }
+}
+
+dt {
+  font-weight: bold;
+}
+
+dt,
+dd {
+  display: inline;
+}
+
+dt {
+  margin-right: 0.5em;
+}
+
+.pilots-portraits-container {
+  display: flex;
+  justify-content: center;
+  gap: 1em;
+  flex-wrap: wrap;
+}
+
+.pilots-portraits {
+  width: 70px;
+  height: 70px;
+  background-size: cover;
+
+  a {
+    display: block;
+    width: 100%;
+    height: 100%;
+  }
+}
