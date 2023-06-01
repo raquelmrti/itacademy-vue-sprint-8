@@ -1,5 +1,5 @@
-import { defineStore } from 'pinia';
-import { useGlobalStore } from './globalStore';
+import { defineStore } from 'pinia'
+import { useGlobalStore } from './globalStore'
 import axios from 'axios'
 import { ref } from 'vue'
 
@@ -7,7 +7,7 @@ export const useFilmStore = defineStore('filmStore', () => {
   const globalStore = useGlobalStore()
   const { API_URL } = globalStore
 
-  const isLoadingFilms = ref(false)
+  const isLoadingFilms = ref(true)
 
   async function fetchFilmById(id) {
     try {
@@ -21,8 +21,13 @@ export const useFilmStore = defineStore('filmStore', () => {
     }
   }
 
+  function $reset() {
+    isLoadingFilms.value = true
+  }
+
   return {
     isLoadingFilms,
-    fetchFilmById
+    fetchFilmById,
+    $reset
   }
-});
+})

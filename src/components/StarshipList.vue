@@ -8,9 +8,12 @@ const globalStore = useGlobalStore();
 const { getIdFromUrl } = globalStore;
 
 const starshipStore = useStarshipStore();
-const { isLoadingStarships, isLoadingMoreStarships, starshipArray, currentPage } = storeToRefs(
-  starshipStore
-);
+const {
+  isLoadingStarships,
+  isLoadingMoreStarships,
+  starshipArray,
+  currentPage,
+} = storeToRefs(starshipStore);
 const { fetchStarships, loadMoreStarships } = starshipStore;
 
 // infinite scrolling
@@ -35,13 +38,9 @@ onUnmounted(() => {
     <p>Loading starships...</p>
   </div>
   <ul v-else class="starship-list-ul">
-    <li
-      class="starship-list-li"
-      v-for="{ name, model, url } in starshipArray"
-      :key="name"
-    >
+    <li class="list-view-li" v-for="{ name, model, url } in starshipArray" :key="name">
       <router-link :to="{ name: 'starshipInfo', params: { id: getIdFromUrl(url) } }">
-        <h3 class="starship-name">{{ name }}</h3>
+        <h3 class="name">{{ name }}</h3>
         <h4 class="starship-model">{{ model }}</h4>
       </router-link>
     </li>
@@ -52,22 +51,8 @@ onUnmounted(() => {
 </template>
 
 <style scoped lang="scss">
-.starship-list-ul {
-  padding-inline-start: 0;
-
-  .starship-list-li {
-    padding: 1.3em;
-    background-color: #ffffff09;
-    margin-bottom: 1.5em;
-    list-style-type: none;
-    .starship-name {
-      text-transform: uppercase;
-
-    }
-
-    .starship-model {
-      font-weight: normal;
-    }
-  }
+@import "../assets/scss/list-views.scss";
+.starship-model {
+  font-weight: normal;
 }
 </style>

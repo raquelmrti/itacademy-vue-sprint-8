@@ -4,7 +4,6 @@ const emit = defineEmits(["closeModal"]);
 const close = () => {
   emit("closeModal");
 };
-
 </script>
 
 <template>

@@ -41,7 +41,10 @@ const { showModalLogIn, showModalSignUp } = storeToRefs(store);
         <RouterLink :to="{ name: 'home' }">Home</RouterLink>
       </li>
       <li class="nav-item">
-        <RouterLink RouterLink :to="{ name: 'starshipList' }">Starships</RouterLink>
+        <RouterLink :to="{ name: 'starshipList' }">Starships</RouterLink>
+      </li>
+      <li class="nav-item">
+        <RouterLink :to="{ name: 'characterList' }">Characters</RouterLink>
       </li>
     </ul>
   </nav>

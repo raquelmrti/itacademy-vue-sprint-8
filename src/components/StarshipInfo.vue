@@ -6,9 +6,13 @@ import { useGlobalStore } from "../stores/globalStore";
 import { storeToRefs } from "pinia";
 
 const starshipStore = useStarshipStore();
-const { isLoading, starshipId, starshipInfo, starshipImg, starshipPilots } = storeToRefs(
-  starshipStore
-);
+const {
+  isLoadingStarships,
+  starshipId,
+  starshipInfo,
+  starshipImg,
+  starshipPilots,
+} = storeToRefs(starshipStore);
 const { fetchStarshipById, showStarshipPlaceholderImg } = starshipStore;
 
 const globalStore = useGlobalStore();
@@ -39,7 +43,7 @@ onUnmounted(() => {
 </script>
 
 <template>
-  <div v-if="isLoading">Loading...</div>
+  <div v-if="isLoadingStarships">Loading...</div>
   <div v-else class="info-wrapper">
     <h1 class="name">{{ starshipInfo.name }}</h1>
     <img
@@ -115,7 +119,7 @@ onUnmounted(() => {
 </template>
 
 <style scoped lang="scss">
-@import "../assets/scss/_info-list.scss";
+@import "../assets/scss/info-list.scss";
 
 .starship-img {
   max-width: 600px;

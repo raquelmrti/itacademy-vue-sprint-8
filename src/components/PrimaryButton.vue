@@ -2,14 +2,14 @@
 const props = defineProps({
   text: {
     type: String,
-    required: true
-  }
+    required: true,
+  },
 });
 </script>
 
 <template>
   <button>
-  {{ text }}
+    {{ text }}
   </button>
 </template>
 
@@ -21,7 +21,7 @@ button {
   box-shadow: none;
   background-color: $yellow-accent;
   color: $black;
-  font-family: 'Bai Jamjuree', sans-serif;
+  font-family: "Bai Jamjuree", sans-serif;
   font-size: 1em;
   font-weight: bold;
   border-radius: 24px;

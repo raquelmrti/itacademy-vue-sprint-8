@@ -84,3 +84,9 @@ The project consists in building a website that shows information about the star
 ---
 
 ### ⭐⭐ **Level 3** ⭐⭐
+
+**— Exercise 10**
+
+- Add a section that lists all the characters.
+
+##### ✅ Finished: 01/05/2023

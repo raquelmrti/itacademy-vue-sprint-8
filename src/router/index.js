@@ -2,6 +2,7 @@ import { createRouter, createWebHistory } from 'vue-router'
 import HomeView from '../views/HomeView.vue'
 import StarshipListView from '../views/StarshipListView.vue'
 import StarshipInfoView from '../views/StarshipInfoView.vue'
+import CharacterListView from '../views/CharacterListView.vue'
 import CharacterInfoView from '../views/CharacterInfoView.vue'
 
 import { useUserStore } from '../stores/userStore'
@@ -23,7 +24,7 @@ const router = createRouter({
       name: 'starshipList',
       component: StarshipListView,
       meta: {
-        requireAuth: false
+        requireAuth: true
       }
     },
     {
@@ -31,23 +32,23 @@ const router = createRouter({
       name: 'starshipInfo',
       component: StarshipInfoView,
       meta: {
-        requireAuth: false
+        requireAuth: true
       }
     },
-    // {
-    //   path: '/characters',
-    //   name: 'characterList',
-    //   component: CharacterListView,
-    //   meta: {
-    //     requireAuth: false
-    //   }
-    // },
+    {
+      path: '/characters',
+      name: 'characterList',
+      component: CharacterListView,
+      meta: {
+        requireAuth: true
+      }
+    },
     {
       path: '/characters/:id',
       name: 'characterInfo',
       component: CharacterInfoView,
       meta: {
-        requireAuth: false
+        requireAuth: true
       }
     }
   ]

@@ -13,6 +13,7 @@ const { getIdFromUrl } = globalStore;
 const characterStore = useCharacterStore();
 const {
   isLoadingCharacterInfo,
+  doesThisCharacterNotPilot,
   characterId,
   characterInfo,
   characterPortrait,
@@ -36,11 +37,15 @@ onMounted(async () => {
 
   const starshipUrls = characterInfo.value.starships;
 
-  starshipsArray.value = await Promise.all(
-    starshipUrls.map(async (starship) => {
-      return await fetchStarshipById(getIdFromUrl(starship));
-    })
-  );
+  if (starshipUrls.length) {
+    starshipsArray.value = await Promise.all(
+      starshipUrls.map(async (starship) => {
+        return await fetchStarshipById(getIdFromUrl(starship));
+      })
+    );
+  } else {
+    isLoadingStarships.value = false;
+  }
 
   const filmUrls = characterInfo.value.films;
 
@@ -53,6 +58,7 @@ onMounted(async () => {
 
 onUnmounted(() => {
   characterStore.$reset();
+  filmStore.$reset();
 });
 </script>
 
@@ -94,6 +100,7 @@ onUnmounted(() => {
           <dd>
             <ul>
               <p v-if="isLoadingStarships">Loading starships...</p>
+              <li v-else-if="doesThisCharacterNotPilot">— None</li>
               <li v-else v-for="starship in starshipsArray" :key="starship.name">
                 — {{ starship.name }}
               </li>
@@ -115,7 +122,7 @@ onUnmounted(() => {
 </template>
 
 <style scoped lang="scss">
-@import "../assets/scss/_info-list.scss";
+@import "../assets/scss/info-list.scss";
 
 .character-portrait {
   max-width: 300px;

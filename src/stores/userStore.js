@@ -25,7 +25,8 @@ export const useUserStore = defineStore('userStore', () => {
   const userIsLoggedIn = ref(false)
 
   const userCredentialsAreCorrect = computed(
-    () => userEmail.value === localStorage.getItem('userEmail') &&
+    () =>
+      userEmail.value === localStorage.getItem('userEmail') &&
       userPassword.value === localStorage.getItem('userPassword')
   )
 
@@ -40,7 +41,6 @@ export const useUserStore = defineStore('userStore', () => {
         router.push(attemptedRoute.value)
         attemptedRoute.value = null
       }
-
     } else {
       console.log('Incorrect email or password.')
       userIsLoggedIn.value = false
